@@ -50,7 +50,7 @@ public class BikeListRecycleViewAdapter extends RecyclerView.Adapter<BikeListRec
         holder.bikeStationName.setText(dataArrayList.get(position).getLabel());
         double distance = distance(lat,lon,dataArrayList.get(position).getLatitude(),dataArrayList.get(position).getLongitude()) ;
         DecimalFormat df = new DecimalFormat("###,###");
-        holder.bikeStationDistance.setText(df.format(distance) + "m");
+        holder.bikeStationDistance.setText(df.format(distance) + " Meter");
         holder.bikeQty.setText(dataArrayList.get(position).getBikes());
         holder.freeQty.setText(dataArrayList.get(position).getFree_racks());
 
@@ -91,7 +91,7 @@ public class BikeListRecycleViewAdapter extends RecyclerView.Adapter<BikeListRec
                 * Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
+        dist = dist * 60 * 1.1515 * 1609.344;
 
         if(dist != 0){
             return (dist);

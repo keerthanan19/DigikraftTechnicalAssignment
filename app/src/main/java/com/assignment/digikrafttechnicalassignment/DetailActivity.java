@@ -63,7 +63,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         bikeStationName.setText(data.getLabel());
         double distance = distance(LAT,LON,data.getLatitude(),data.getLongitude()) ;
         DecimalFormat df = new DecimalFormat("###,###");
-        bikeStationDistance.setText(df.format(distance) + "m");
+        bikeStationDistance.setText(df.format(distance) + " Meter");
         bikeQty.setText(data.getBikes());
         freeQty.setText(data.getFree_racks());
 
@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
         LatLng sydney = new LatLng(latitude, longitude);
         googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title(data.getLabel()));
+                .title(data.getLabel()).title(data.getFree_racks()));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,19));
         // googleMap.animateCamera(CameraUpdateFactory.zoomIn());
         googleMap.getUiSettings().setZoomControlsEnabled(true);
@@ -105,7 +105,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 * Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
+        dist = dist * 60 * 1.1515 * 1609.344;
 
         if(dist != 0){
             return (dist);

@@ -9,21 +9,11 @@
     android:orientation="vertical"
     tools:context=".DetailActivity">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_margin="10dp"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:ignore="RedundantNamespace" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        android:paddingBottom="5dp"
+        android:layout_margin="5dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
@@ -134,5 +124,16 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:ignore="RedundantNamespace" />
+
 
 </LinearLayout>
