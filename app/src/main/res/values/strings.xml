@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Digikraft Technical Assignment</string>
+    <string name="bike_station_name">Bike Station Name</string>
+    <string name="bike_station_distance">Bike Station Distance</string>
+    <string name="available_bike">Available Bike</string>
+    <string name="available_place">Available Place</string>
+    <string name="_07">07</string>
+    <string name="_19">19</string>
+</resources>
