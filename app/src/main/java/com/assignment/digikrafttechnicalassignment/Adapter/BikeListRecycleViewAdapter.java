@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.assignment.digikrafttechnicalassignment.CallBack.OnClick;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
 import com.assignment.digikrafttechnicalassignment.R;
+import com.assignment.digikrafttechnicalassignment.Utils.Service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class BikeListRecycleViewAdapter extends RecyclerView.Adapter<BikeListRec
     public void onBindViewHolder(@NonNull BikeListRecycleViewAdapter.RecycleViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.bikeStationName.setText(dataArrayList.get(position).getLabel());
-        double distance = distance(lat,lon,dataArrayList.get(position).getLatitude(),dataArrayList.get(position).getLongitude()) ;
+        double distance = Service.distance(lat,lon,dataArrayList.get(position).getLatitude(),dataArrayList.get(position).getLongitude()) ;
         DecimalFormat df = new DecimalFormat("###,###");
         holder.bikeStationDistance.setText(df.format(distance) + " Meter");
         holder.bikeQty.setText(dataArrayList.get(position).getBikes());
@@ -80,32 +81,5 @@ public class BikeListRecycleViewAdapter extends RecyclerView.Adapter<BikeListRec
             freeQty = itemView.findViewById(R.id.freeQty);
 
         }
-    }
-
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515 * 1609.344;
-
-        if(dist != 0){
-            return (dist);
-        }else {
-            return (0);
-        }
-
-    }
-
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
     }
 }

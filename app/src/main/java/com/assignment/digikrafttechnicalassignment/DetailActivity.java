@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.assignment.digikrafttechnicalassignment.Database.DBUtils;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
+import com.assignment.digikrafttechnicalassignment.Utils.Service;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -63,7 +64,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         freeQty = findViewById(R.id.freeQty);
 
         bikeStationName.setText(data.getLabel());
-        double distance = distance(LAT,LON,data.getLatitude(),data.getLongitude()) ;
+        double distance = Service.distance(LAT,LON,data.getLatitude(),data.getLongitude()) ;
         DecimalFormat df = new DecimalFormat("###,###");
         bikeStationDistance.setText(df.format(distance) + " Meter");
         bikeQty.setText(data.getBikes());
@@ -99,30 +100,4 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515 * 1609.344;
-
-        if(dist != 0){
-            return (dist);
-        }else {
-            return (0);
-        }
-
-    }
-
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
 }

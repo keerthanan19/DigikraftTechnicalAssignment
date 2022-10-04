@@ -33,6 +33,7 @@ import com.assignment.digikrafttechnicalassignment.Database.DBUtils;
 import com.assignment.digikrafttechnicalassignment.NetWork.HandleApiResponse;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
 import com.assignment.digikrafttechnicalassignment.Utils.GpsTracker;
+import com.assignment.digikrafttechnicalassignment.Utils.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,48 +130,12 @@ public class MainActivity extends AppCompatActivity implements OnClick {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.refresh) {
             layout.setVisibility(View.VISIBLE);
-            new Thread(new Runnable() {
-                public void run() {
-                    while (progressStatus < 100) {
-                        progressStatus += 20;
-                        // Update the progress bar and display the
-                        //current value in the text view
-                        handler.post(new Runnable() {
-                            public void run() {
-                                progressBar.setProgress(progressStatus);
-                                textView.setText(progressStatus+"/"+progressBar.getMax());
-                            }
-                        });
-                        try {
-                            // Sleep for 200 milliseconds.
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }).start();
-            getAllData();
+            Service.progressBar(progressStatus,handler,progressBar,textView);
+            Service.getAllData(this);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    void getAllData(){
-        HandleApiResponse handleApiResponse = new HandleApiResponse(this,"http://www.poznan.pl/mim/plan/");
-        handleApiResponse.getAllData( new HandleApiResponse.CallBackDataDelegate() {
-            @Override
-            public void onResponseSuccess(List<Data> dataList) {
-                Log.e("getAllChild", "result "+dataList.size());
-                int count = 0;
-                startActivity(new Intent(MainActivity.this,MainActivity.class));
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
 
     @Override
     public void onBackPressed() {

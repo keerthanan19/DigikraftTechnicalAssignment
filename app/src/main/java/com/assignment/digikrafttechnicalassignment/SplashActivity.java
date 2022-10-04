@@ -5,19 +5,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.assignment.digikrafttechnicalassignment.Database.DBUtils;
-import com.assignment.digikrafttechnicalassignment.NetWork.HandleApiResponse;
-import com.assignment.digikrafttechnicalassignment.Object.Data;
-
-import java.util.List;
+import com.assignment.digikrafttechnicalassignment.Utils.Service;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -46,6 +41,11 @@ public class SplashActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_circular);
         textView = (TextView) findViewById(R.id.textView);
         // Start long running operation in a background thread
+        Service.progressBar(progressStatus,handler,progressBar,textView);
+        Service.getAllData(this);
+    }
+
+    private void progressBar() {
         new Thread(new Runnable() {
             public void run() {
                 while (progressStatus < 100) {
@@ -67,24 +67,6 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }).start();
-        getAllData();
-    }
-
-    void getAllData(){
-        HandleApiResponse handleApiResponse = new HandleApiResponse(this,"http://www.poznan.pl/mim/plan/");
-        handleApiResponse.getAllData( new HandleApiResponse.CallBackDataDelegate() {
-            @Override
-            public void onResponseSuccess(List<Data> dataList) {
-                Log.e("getAllChild", "result "+dataList.size());
-                int count = 0;
-                startActivity(new Intent(SplashActivity.this,MainActivity.class));
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
     }
 
 }

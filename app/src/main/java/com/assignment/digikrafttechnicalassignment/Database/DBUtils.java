@@ -90,7 +90,7 @@ public class DBUtils {
             }
             return dataArrayList;
         } catch (Exception e) {
-            Log.e(TAG, "getAllUsers " + e);
+            Log.e(TAG, "getAllData " + e);
         }
         return dataArrayList;
     }
@@ -124,7 +124,7 @@ public class DBUtils {
             }
             return data;
         } catch (Exception e) {
-            Log.e(TAG, "getUserByID " + e.toString());
+            Log.e(TAG, "getDataByID " + e.toString());
         }
         return data;
     }
