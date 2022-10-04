@@ -35,6 +35,9 @@
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             android:exported="false">
             <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.assignment.digikrafttechnicalassignment.MainActivity"/>
+            <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>

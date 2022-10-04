@@ -9,22 +9,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.assignment.digikrafttechnicalassignment.Adapter.BikeListRecycleViewAdapter;
 import com.assignment.digikrafttechnicalassignment.CallBack.OnClick;
 import com.assignment.digikrafttechnicalassignment.Database.DBUtils;
+import com.assignment.digikrafttechnicalassignment.NetWork.HandleApiResponse;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
 import com.assignment.digikrafttechnicalassignment.Utils.GpsTracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnClick {
 
@@ -39,6 +50,12 @@ public class MainActivity extends AppCompatActivity implements OnClick {
     RecyclerView bikeStationList ;
     ArrayList<Data>dataArrayList = new ArrayList<>();
 
+    private ProgressBar progressBar;
+    private RelativeLayout layout;
+    private int progressStatus = 0;
+    private TextView textView;
+    private Handler handler = new Handler();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements OnClick {
         mContext = MainActivity.this;
         onClick = this;
         bikeStationList = findViewById(R.id.bikeStationList);
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_circular);
+        textView = (TextView) findViewById(R.id.textView);
+        layout = findViewById(R.id.layout);
 
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
@@ -94,4 +115,77 @@ public class MainActivity extends AppCompatActivity implements OnClick {
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.refresh_menu, menu);
+
+        // return true so that the menu pop up is opened
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.refresh) {
+            layout.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                public void run() {
+                    while (progressStatus < 100) {
+                        progressStatus += 20;
+                        // Update the progress bar and display the
+                        //current value in the text view
+                        handler.post(new Runnable() {
+                            public void run() {
+                                progressBar.setProgress(progressStatus);
+                                textView.setText(progressStatus+"/"+progressBar.getMax());
+                            }
+                        });
+                        try {
+                            // Sleep for 200 milliseconds.
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
+            getAllData();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    void getAllData(){
+        HandleApiResponse handleApiResponse = new HandleApiResponse(this,"http://www.poznan.pl/mim/plan/");
+        handleApiResponse.getAllData( new HandleApiResponse.CallBackDataDelegate() {
+            @Override
+            public void onResponseSuccess(List<Data> dataList) {
+                Log.e("getAllChild", "result "+dataList.size());
+                int count = 0;
+                startActivity(new Intent(MainActivity.this,MainActivity.class));
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                       MainActivity.this.finish();
+                        System.exit(1);
+                    }
+                }).create().show();
+    }
+
 }

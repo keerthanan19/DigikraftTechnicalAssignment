@@ -50,6 +50,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
        LAT = Double.parseDouble(getIntent().getStringExtra("LAT"));
        LON = Double.parseDouble(getIntent().getStringExtra("LON"));
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
        data = DBUtils.getDataByID(mContext,ID);
 
        latitude = data.getLatitude();
