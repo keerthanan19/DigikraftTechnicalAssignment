@@ -29,7 +29,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCs-dlDdHCFregVmhrtum47sieWimvnmzo" />
+            android:value="AIzaSyBp5XzU7YpGKHrBrTcbGqgHIN105VFrogw" />
         <activity
             android:name=".DetailActivity"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"

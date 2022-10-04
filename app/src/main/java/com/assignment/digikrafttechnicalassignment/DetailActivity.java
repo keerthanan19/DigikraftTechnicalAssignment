@@ -79,10 +79,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
         //  Toast.makeText(getApplicationContext() ,Address,Toast.LENGTH_LONG).show();
 
-        LatLng sydney = new LatLng(latitude, longitude);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title(data.getLabel()).title(data.getFree_racks()));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,19));
+        LatLng currentPosition = new LatLng(latitude, longitude);
+        googleMap.addMarker(new MarkerOptions().position(currentPosition)
+                .title(data.getLabel() + "\n " + data.getBikes())).showInfoWindow();
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition,19));
         // googleMap.animateCamera(CameraUpdateFactory.zoomIn());
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
