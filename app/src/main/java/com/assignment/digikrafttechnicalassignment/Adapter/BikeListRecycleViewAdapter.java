@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.assignment.digikrafttechnicalassignment.CallBack.OnClick;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
 import com.assignment.digikrafttechnicalassignment.R;
-import com.assignment.digikrafttechnicalassignment.Utils.Service;
+import com.assignment.digikrafttechnicalassignment.Utils.Controller;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class BikeListRecycleViewAdapter extends RecyclerView.Adapter<BikeListRec
     public void onBindViewHolder(@NonNull BikeListRecycleViewAdapter.RecycleViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.bikeStationName.setText(dataArrayList.get(position).getLabel());
-        double distance = Service.distance(lat,lon,dataArrayList.get(position).getLatitude(),dataArrayList.get(position).getLongitude()) ;
+        double distance = Controller.distance(lat,lon,dataArrayList.get(position).getLatitude(),dataArrayList.get(position).getLongitude()) ;
         DecimalFormat df = new DecimalFormat("###,###");
         holder.bikeStationDistance.setText(df.format(distance) + " Meter");
         holder.bikeQty.setText(dataArrayList.get(position).getBikes());

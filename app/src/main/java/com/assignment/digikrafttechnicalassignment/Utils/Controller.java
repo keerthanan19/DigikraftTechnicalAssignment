@@ -1,7 +1,6 @@
 package com.assignment.digikrafttechnicalassignment.Utils;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
@@ -12,10 +11,9 @@ import com.assignment.digikrafttechnicalassignment.MainActivity;
 import com.assignment.digikrafttechnicalassignment.NetWork.HandleApiResponse;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
 
-import java.text.CollationElementIterator;
 import java.util.List;
 
-public class Service {
+public class Controller {
 
     private static int progressStatus;
 

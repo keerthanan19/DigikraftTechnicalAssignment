@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.assignment.digikrafttechnicalassignment.Database.DBUtils;
 import com.assignment.digikrafttechnicalassignment.Object.Data;
-import com.assignment.digikrafttechnicalassignment.Utils.Service;
+import com.assignment.digikrafttechnicalassignment.Utils.Controller;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -64,7 +64,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         freeQty = findViewById(R.id.freeQty);
 
         bikeStationName.setText(data.getLabel());
-        double distance = Service.distance(LAT,LON,data.getLatitude(),data.getLongitude()) ;
+        double distance = Controller.distance(LAT,LON,data.getLatitude(),data.getLongitude()) ;
         DecimalFormat df = new DecimalFormat("###,###");
         bikeStationDistance.setText(df.format(distance) + " Meter");
         bikeQty.setText(data.getBikes());

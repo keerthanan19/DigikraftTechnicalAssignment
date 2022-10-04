@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.assignment.digikrafttechnicalassignment.Database.DBUtils;
-import com.assignment.digikrafttechnicalassignment.Utils.Service;
+import com.assignment.digikrafttechnicalassignment.Utils.Controller;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -41,8 +41,8 @@ public class SplashActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_circular);
         textView = (TextView) findViewById(R.id.textView);
         // Start long running operation in a background thread
-        Service.progressBar(progressStatus,handler,progressBar,textView);
-        Service.getAllData(this);
+        Controller.progressBar(progressStatus,handler,progressBar,textView);
+        Controller.getAllData(this);
     }
 
     private void progressBar() {
